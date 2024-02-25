@@ -5,34 +5,23 @@ from selenium.common.exceptions import NoSuchElementException
 from time import sleep
 website_urls = [
      "https://www.flipkart.com/",
-     "https://www.amazon.in/",
+    "https://www.amazon.in/",
      "https://www.ebay.com/",
-   
+     "https://www.myntra.com/"
 ]
 search_selectors = {
     "https://www.flipkart.com/": [By.CLASS_NAME, "Pke_EE"],
     "https://www.amazon.in/": [By.ID, "twotabsearchtextbox"],
     "https://www.ebay.com/" : [By.ID, "gh-ac"],
+    "https://www.myntra.com/": [By.CLASS_NAME, "desktop-searchBar"]
 }
 
 submit_selectors = {
     "https://www.flipkart.com/": [By.CLASS_NAME, "_2iLD__ "],
     "https://www.amazon.in/": [By.ID, "nav-search-submit-button"],
     "https://www.ebay.com/" : [By.ID, "gh-btn"],
+    "https://www.myntra.com/": [By.CLASS_NAME, "desktop-submit"]
 }
-
-extract_name_selectors = {
-    "https://www.flipkart.com/": [By.XPATH, "//div[@class='_4rR01T']"],
-    "https://www.amazon.in/": [By.XPATH , "//span[@class='a-size-medium a-color-base a-text-normal']"],
-    "https://www.ebay.com/" : [By.XPATH,  "//span[@role='heading']"],
-}
-
-extract_price_selectors = {
-    "https://www.flipkart.com/": [By.XPATH, "//div[@class='_30jeq3 _1_WHN1']"],
-    "https://www.amazon.in/": [By.XPATH,"//span[@class='a-price-whole']"],
-    "https://www.ebay.com/" : [By.XPATH,"//span[@class='s-item__price']"],
-}
-
 product = "iPhone 14"
 
 # Initialize Chrome WebDriver
@@ -51,11 +40,9 @@ for url in website_urls:
     search_element.send_keys(Keys.ENTER)
     
      #Extraction 
-    
-    names = driver.find_elements(extract_name_selectors[url][0],extract_name_selectors[url][1])
-    prices = driver.find_elements(extract_price_selectors[url][0],extract_price_selectors[url][1])
-    print(url)
+    names = driver.find_elements(By.XPATH ,"//span[@class='a-size-medium a-color-base a-text-normal']")
+    prices = driver.find_elements(By.XPATH,"//span[@class='a-price-whole']")
     for name,price in zip(names,prices) :
         if product in name.text:
-             print(name.text, price.text)
-
+            print(name.text, price.text)
+            sleep(2)
