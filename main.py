@@ -3,6 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from time import sleep
+
+best_price = None
+best_product_details = None
+
 website_urls = [
      "https://www.flipkart.com/",
      "https://www.amazon.in/",
@@ -51,11 +55,25 @@ for url in website_urls:
     search_element.send_keys(Keys.ENTER)
     
      #Extraction 
-    
-    names = driver.find_elements(extract_name_selectors[url][0],extract_name_selectors[url][1])
-    prices = driver.find_elements(extract_price_selectors[url][0],extract_price_selectors[url][1])
-    print(url)
-    for name,price in zip(names,prices) :
-        if product in name.text:
-             print(name.text, price.text)
-             
+    try :
+         names = driver.find_elements(extract_name_selectors[url][0],extract_name_selectors[url][1])
+         prices = driver.find_elements(extract_price_selectors[url][0],extract_price_selectors[url][1])
+         print(url)
+         for name,price in zip(names,prices) :
+              if product in name.text:
+                  current_price = float(price.text.replace(",", ""))  # Convert price to float
+                  if best_price is None or current_price < best_price:
+                    best_price = current_price
+                    best_product_details = (name.text, price.text, url)
+    except NoSuchElementException:
+        pass  # Continue to the next website if elements are not found
+
+driver.quit()
+
+if best_product_details:
+    print("Product with the lowest price:")
+    print("- Name:", best_product_details[0])
+    print("- Price:", best_product_details[1])
+    print("- Website:", best_product_details[2])
+else:
+    print("Product not found on any of the websites.")
