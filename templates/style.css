@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    height: 150px;
+    width: 500px;
+    height: 50px;
+  }
+  .topnav {
+    width: 30%;
+    height: 100%;
+  }
+input{
+    padding: 5px 150px;
+    border-radius: 15px;
+    margin-top: 10px;
+    
+}
+.logoimg {
+    height: 300px;
+    width: 300px;
+    
+}
+.abcd{
+    display:flex;
+    justify-content: end;
+    width: 100%;
+}
+.xyz{
+
+ background-image: url('https://img.freepik.com/free-photo/shopping-cart-with-wooden-elements_23-2148879396.jpg?w=826&t=st=1708835479~exp=1708836079~hmac=55d55a821bd7a05d84cbb2ddb77d05ee57afdfe95c4cdefb3135230400d3cb5e');
+ background-size: cover;
+}
+.hij{
+    color: rgb(19, 77, 12);
+    font-size: 70px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
+    text-align: center;
+}
+
+
+
+
+
